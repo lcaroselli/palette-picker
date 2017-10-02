@@ -1,0 +1,63 @@
+body {
+  background: #FFFFFF;
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  color: #3B7093;
+  font-family: 'Droid Serif', sans-serif;
+  font-size: 50px;
+  text-align: left;
+}
+
+header img {
+  height: 42px;
+  margin: 0px 20px;
+  width: 42px;
+}
+
+#palette-section {
+  background: #E5FCF4;
+  border: 2px solid #3C6E71;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+#palette-section article {
+  background: white;
+  border: 2px solid black;
+  margin: 20px;
+  min-height: 350px;
+  min-width: 215px;
+}
+
+#save-palette-section {
+  display: flex;
+  flex-direction: column;
+}
+
+#generate-button, #save-palette-button, #save-project-button {
+  background: #30343F;
+  border: 2px solid white;;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  height: 50px;
+  width: 200px;
+}
+
+#generate-button {
+  margin: auto;
+}
+
+#generate-button:hover, #save-palette-button:hover, #save-project-button:hover {
+  background: white;
+  border: 2px solid #303435;
+  color: #30343F;
+  transition: all .2s ease-in;
+}
