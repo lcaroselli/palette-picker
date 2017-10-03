@@ -29,7 +29,7 @@ header img {
 }
 
 #palette-section article {
-  background: white;
+  /*background: white;*/
   border: 2px solid black;
   margin: 20px;
   min-height: 350px;
