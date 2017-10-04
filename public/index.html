@@ -27,19 +27,23 @@
     <section id='save-palette-section'>
       <button id='generate-button' type='button' name='button'>Generate New Palette</button>
 
-      <select>
-        <option>Project 1</option>
-      </select>
+      <div id='save-palette-div'>
+        <select>
+          <option>Project 1</option>
+        </select>
+        <input type='text' name='' value="Palette Name">
+        <button id='save-palette-button' type='button' name='button'>Save Palette</button>
+      </div>
 
-      <input type='text' name='' value="Palette Name">
-      <button id='save-palette-button' type='button' name='button'>Save Palette</button>
-
-      <input type='text' name='' value="New Project Name">
-      <button id='save-project-button' type='button' name='button'>Save Project</button>
+      <div id='save-project-div'>
+        <input type='text' name='' value="New Project Name">
+        <button id='save-project-button' type='button' name='button'>Save Project</button>
+      </div>
     </section>
 
-    <section id='project-folders'>
+    <section id='project-folders-section'>
       <button type='button' name='button'>Project 1</button>
+      <img src='./assets/garbage.svg' alt='Delete project icon'>
     </section>
 
     <script src='http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>

@@ -19,40 +19,42 @@ header img {
 }
 
 #palette-section {
-  background: #E5FCF4;
+  background: #FFFFFF;
   border: 2px solid #3C6E71;
   display: flex;
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
-  width: 100%;
 }
 
 #palette-section article {
-  /*background: white;*/
+  background-image: url('../assets/unlocked.svg');
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: 50px 50px;
   border: 2px solid black;
+  font-size: 20px;
   margin: 20px;
   min-height: 350px;
   min-width: 215px;
-}
-
-#save-palette-section {
-  display: flex;
-  flex-direction: column;
+  padding-top: 15px;
+  text-align: center;
 }
 
 #generate-button, #save-palette-button, #save-project-button {
   background: #30343F;
-  border: 2px solid white;;
+  border: 2px solid black;
   color: white;
   cursor: pointer;
   font-size: 16px;
-  height: 50px;
-  width: 200px;
+  height: 45px;
+  width: 150px;
 }
 
 #generate-button {
-  margin: auto;
+  display: block;
+  margin: 30px auto 50px auto;
+  width: 350px;
 }
 
 #generate-button:hover, #save-palette-button:hover, #save-project-button:hover {
@@ -60,4 +62,62 @@ header img {
   border: 2px solid #303435;
   color: #30343F;
   transition: all .2s ease-in;
+}
+
+#save-palette-div, #save-project-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+#save-palette-div input, #save-project-div input {
+  opacity: 0.5;
+  border: 2px solid black;
+  font-size: 20px;
+  height: 40px;
+  margin-right: 5px;
+  width: 300px;
+}
+
+#save-project-div {
+  border-bottom: 2px solid #3C6E71;
+}
+
+#save-project-div input {
+  margin-bottom: 40px;
+  width: 510px;
+}
+
+#save-palette-div input:focus, #save-project-div input:focus {
+  opacity: 1;
+}
+
+select {
+  font-size: 20px;
+  height: 45px;
+  margin-right: 5px;
+  width: 200px;
+}
+
+#project-folders-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#project-folders-section button {
+  font-size: 20px;
+  height: 30px;
+  margin-bottom: 40px;
+  width: 100px;
+}
+
+#project-folders-section button:hover {
+  cursor: pointer;
+}
+
+#project-folders-section img {
+  height: 30px;
+  width: 30px;
 }
