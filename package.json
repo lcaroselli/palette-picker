@@ -1,11 +1,12 @@
 {
   "name": "palette-picker",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.18.2",
-    "express": "^4.16.1"
+    "express": "^4.16.1",
+    "knex": "^0.13.0",
+    "pg": "^7.3.0"
   },
   "devDependencies": {},
   "scripts": {
@@ -22,5 +23,6 @@
   "bugs": {
     "url": "https://github.com/lcaroselli/palette-picker/issues"
   },
-  "homepage": "https://github.com/lcaroselli/palette-picker#readme"
+  "homepage": "https://github.com/lcaroselli/palette-picker#readme",
+  "description": ""
 }
