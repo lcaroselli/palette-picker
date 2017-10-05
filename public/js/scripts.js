@@ -26,7 +26,7 @@ const storeProject = (name) => {
 const storePalette = (name) => {
   fetch('/api/v1/palettes', {
     method: 'POST',
-    body: JSON.stringify({name}),
+    body: JSON.stringify(name),
     headers: {
       'Accept': 'application/json, text/plain, */*',
       'Content-Type': 'application/json'
@@ -48,11 +48,11 @@ const showProjects = (project) => {
 }
 
 const showPalettes = (palette) => {
-  const { palette_name, id } = palette;
+  const { palette_name, project_id } = palette;
 
   $('#project-folders-section').append(
     `<article>
-      <h2 value=${id}>${palette_name}</h2>
+      <h2 value=${project_id}>${palette_name}</h2>
     </article>`);
 }
 
@@ -70,7 +70,15 @@ const createProject = () => {
 }
 
 const createPalette = () => {
-  const palette = $('#palette-name').val();
+  const palette = Object.assign({}, {
+    name: $('#palette-name').val(),
+    color_1: $('#color-1').text(),
+    color_2: $('#color-2').text(),
+    color_3: $('#color-3').text(),
+    color_4: $('#color-4').text(),
+    color_5: $('#color-5').text(),
+    project_id: $('#project-list option:selected').val()
+  })
   storePalette(palette);
 }
 
@@ -80,4 +88,4 @@ $('#save-project-button').on('click', createProject);
 
 $('#save-palette-button').on('click', createPalette);
 
-$(document).ready(generatePalette, fetchProjects);
+$(document).ready(generatePalette, fetchProjects, fetchPalettes);

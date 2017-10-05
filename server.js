@@ -59,18 +59,16 @@ app.post('/api/v1/projects', (request, response) => {
 });
 
 // POST palette
-// app.post('/api/v1/palettes', (request, response) => {
-//   const { name } = request.body;
-//
-//   if (!name) {
-//     return response.status(422).json({ error: 'Missing property: name' })
-//   }
-//
-//   database('projects').insert({ palette_name: name }, '*')
-//     //string is a db prop.
-//   .then(palette => response.status(201).json( palette[0] ))
-//   .catch(error => response.status(500).json({ error }))
-// });
+app.post('/api/v1/palettes', (request, response) => {
+  const { name, color_1, color_2, color_3, color_4, color_5, project_id } = request.body;
+
+  //Need error for missing props
+
+  database('palettes').insert({ palette_name: name, color_one: color_1, color_two: color_2, color_three: color_3, color_four: color_4, color_five: color_5, project_id }, '*')
+
+  .then(palette => response.status(201).json( palette[0] ))
+  .catch(error => response.status(500).json({ error }))
+});
 
 
 // DELETE palette
