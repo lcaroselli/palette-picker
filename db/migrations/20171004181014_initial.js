@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
       table.timestamps(true, true);
     }),
     knex.schema.createTable('palettes', (table) => {
-      table.increments('id').primary()
+      table.increments('id').primary();
       table.string('palette_name').unique();
       table.string('color_1');
       table.string('color_2');
