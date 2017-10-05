@@ -48,12 +48,22 @@ const showProjects = (project) => {
 }
 
 const showPalettes = (palette) => {
-  const { palette_name, project_id } = palette;
+  const { palette_name, project_id, color_one, color_two, color_three, color_four, color_five } = palette;
 
   $('#project-folders-section').append(
-    `<article>
+    `<div class='mini-palette-container'>
       <h2 value=${project_id}>${palette_name}</h2>
-    </article>`);
+
+      <span style='background-color:${color_one}' class='small-palette'>${color_one}</span>
+
+      <span style='background-color:${color_two}' class='small-palette'>${color_two}</span>
+
+      <span style='background-color:${color_three}' class='small-palette'>${color_three}</span>
+
+      <span style='background-color:${color_four}' class='small-palette'>${color_four}</span>
+
+      <span style='background-color:${color_five}' class='small-palette'>${color_five}</span>
+    </div>`);
 }
 
 const fetchProjects = () => {
@@ -82,6 +92,7 @@ const createPalette = () => {
   storePalette(palette);
 }
 
+//Event Listeners
 $('#generate-button').on('click', generatePalette);
 $(window).keypress(function(e) {
   if (e.which === 32 && !$('#generate-button').is(':focus')){
