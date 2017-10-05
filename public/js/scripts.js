@@ -83,9 +83,13 @@ const createPalette = () => {
 }
 
 $('#generate-button').on('click', generatePalette);
+$(window).keypress(function(e) {
+  if (e.which === 32 && !$('#generate-button').is(':focus')){
+    generatePalette()
+  }
+});
 
 $('#save-project-button').on('click', createProject);
-
 $('#save-palette-button').on('click', createPalette);
 
 $(document).ready(generatePalette, fetchProjects, fetchPalettes);
