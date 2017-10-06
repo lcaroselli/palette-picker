@@ -13,7 +13,7 @@ const generatePalette = () => {
 const storeProject = (name) => {
   fetch('/api/v1/projects', {
     method: 'POST',
-    body: JSON.stringify({name}),
+    body: JSON.stringify({ name }),
     headers: {
       'Accept': 'application/json, text/plain, */*',
       'Content-Type': 'application/json'
@@ -21,7 +21,7 @@ const storeProject = (name) => {
   })
   .then(response => { return response })
   .then(response => response.json())
-  .then(response => showProjects(response))
+  .then(response => { return response })
   .catch(error => console.log(error))
 }
 
@@ -36,6 +36,21 @@ const storePalette = (name) => {
   })
   .then(response => { return response })
   .then(response => response.json())
+  .then(response => { return response })
+  .catch(error => console.log(error))
+}
+
+const fetchProjects = () => {
+  fetch('/api/v1/projects')
+  .then(response => response.json())
+  .then(response => { return response })
+  .then(response => showProjects(response))
+}
+
+const fetchPalettes = () => {
+  fetch('/api/v1/palettes')
+  .then(response => response.json())
+  .then(response => { return response })
   .then(response => showPalettes(response))
 }
 
@@ -53,47 +68,39 @@ const deletePalette = (e) => {
 }
 
 const showProjects = (project) => {
-  const { project_name, id } = project;
+  return project.map(key => {
+      $('#project-list').append(`<option value=${key.id}>${key.project_name}</option>`)
 
-  $('#project-list').append(`<option value=${id}>${project_name}</option>`);
-
-  $('#project-folders-section').append(
-    `<article class='project-folder project-folder-${id}' id=${id}>
-      <h2>
-        ${project_name}
-      </h2>
-    </article>`);
+      $('#project-folders-section').append(
+        `<article class='project-folder project-folder-${key.id}' id=${key.id}>
+        <h2>
+        ${key.project_name}
+        </h2>
+        </article>`)
+  })
 }
 
 const showPalettes = (palette) => {
-  const { palette_name, project_id, color_one, color_two, color_three, color_four, color_five, id } = palette;
+  return palette.map(key => {
+    $(`.project-folder-${key.project_id}`).append(
+        `<div class='mini-palette-container' id=${key.id}>
+        <h3 value=${key.project_id}>
+          ${key.palette_name}
+          <img id='delete-palette' src='../assets/garbage.svg' alt='Delete palette icon'>
+        </h3>
 
-  const dropPalette = `<div class='mini-palette-container' id=${id}>
-      <h3 value=${project_id}>
-        ${palette_name}
-        <img id='delete-palette' src='../assets/garbage.svg' alt='Delete palette icon'>
-      </h3>
+        <span style='background-color:${key.color_one}' class='small-palette'>${key.color_one}</span>
 
-      <span style='background-color:${color_one}' class='small-palette'>${color_one}</span>
+        <span style='background-color:${key.color_two}' class='small-palette'>${key.color_two}</span>
 
-      <span style='background-color:${color_two}' class='small-palette'>${color_two}</span>
+        <span style='background-color:${key.color_three}' class='small-palette'>${key.color_three}</span>
 
-      <span style='background-color:${color_three}' class='small-palette'>${color_three}</span>
+        <span style='background-color:${key.color_four}' class='small-palette'>${key.color_four}</span>
 
-      <span style='background-color:${color_four}' class='small-palette'>${color_four}</span>
-
-      <span style='background-color:${color_five}' class='small-palette'>${color_five}</span>
-    </div>`
-
-    $(`.project-folder-${palette.project_id}`).append(dropPalette);
-}
-
-const fetchProjects = () => {
-  fetchAll('projects', showProjects);
-}
-
-const fetchPalettes = () => {
-  fetchAll('palettes', showPalettes);
+        <span style='background-color:${key.color_five}' class='small-palette'>${key.color_five}</span>
+      </div>`
+    )
+  })
 }
 
 const createProject = () => {
@@ -124,7 +131,7 @@ const toggleLockColor = (e) => {
   }
 }
 
-const loadPageInfo = () => {
+const loadPageInfo = (project) => {
   generatePalette();
   fetchProjects();
   fetchPalettes();
