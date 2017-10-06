@@ -106,7 +106,7 @@ app.delete('/api/v1/projects/:id', (request, response) => {
 //Using the .delete method on our express app to delete a specific palette resources in our database.
 //It finds that palette by the id and then calls the del() method to destroy that resource
 //If the id is not found, an error message is displayed indicating the palette id was not found
-//otherwise, a successful status is sent to the user
+//otherwise, a successful status is sent to the userc
 //if an internal error is caught, that error is displayed
 app.delete('/api/v1/palettes/:id', (request, response) => {
   const id = request.params.id;
