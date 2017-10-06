@@ -27,11 +27,26 @@ header img {
   flex-wrap: wrap;
 }
 
-#palette-section article {
+.lock {
   background-image: url('../assets/unlocked.svg');
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: 50px 50px;
+  border: 2px solid black;
+  font-size: 20px;
+  margin: 20px;
+  min-height: 350px;
+  min-width: 215px;
+  padding-top: 15px;
+  text-align: center;
+}
+
+.unlock {
+  background-image: url('../assets/locked.svg');
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: 50px 50px;
+  box-shadow: 3px 3px black;
   border: 2px solid black;
   font-size: 20px;
   margin: 20px;
