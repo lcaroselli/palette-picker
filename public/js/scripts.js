@@ -36,14 +36,28 @@ const storePalette = (name) => {
   .then(response => showPalettes(response))
 }
 
+const destroyProject = (id) => {
+  fetch(`/api/v1/projects/${id}`, {
+    method: 'DELETE',
+  })
+}
+
+const deleteProject = (e) => {
+  const targetProject = $(e.target).closest('.project-folder');
+  const targetProjectId = targetProject.attr('id');
+  destroyProject(targetProjectId);
+    //REMOVING FROM DOM BUT NOT FROM DB ?
+  targetProject.remove();
+}
+
 const showProjects = (project) => {
   const { project_name, id } = project;
 
   $('#project-list').append(`<option value=${id}>${project_name}</option>`);
 
   $('#project-folders-section').append(
-    `<article>
-      <h2 value=${id}>${project_name}<img src='../assets/garbage.svg' alt='Delete project icon'></h2>
+    `<article class='project-folder' id=${id}>
+      <h2 value=${id}>${project_name}<img id='delete-button' src='../assets/garbage.svg' alt='Delete project icon'></h2>
     </article>`);
 }
 
@@ -102,5 +116,6 @@ $(window).keypress(function(e) {
 
 $('#save-project-button').on('click', createProject);
 $('#save-palette-button').on('click', createPalette);
+$('body').on('click', '#delete-button', deleteProject);
 
 $(document).ready(generatePalette, fetchProjects, fetchPalettes);

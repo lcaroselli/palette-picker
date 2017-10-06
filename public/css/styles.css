@@ -123,9 +123,13 @@ select {
   cursor: pointer;
 }
 
-#project-folders-section img {
+#delete-button {
   height: 30px;
   width: 30px;
+}
+
+#delete-button:hover {
+  cursor: pointer;
 }
 
 .small-palette {
