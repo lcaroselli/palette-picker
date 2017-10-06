@@ -51,6 +51,10 @@ header img {
   width: 150px;
 }
 
+#save-palette-button:disabled {
+  opacity: 0.3;
+}
+
 #generate-button {
   display: block;
   margin: 30px auto 50px auto;

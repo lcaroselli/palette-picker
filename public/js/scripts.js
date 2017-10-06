@@ -19,8 +19,10 @@ const storeProject = (name) => {
       'Content-Type': 'application/json'
     }
   })
+  .then(response => { return response })
   .then(response => response.json())
   .then(response => showProjects(response))
+  .catch(error => console.log(error))
 }
 
 const storePalette = (name) => {
@@ -32,6 +34,7 @@ const storePalette = (name) => {
       'Content-Type': 'application/json'
     }
   })
+  .then(response => { return response })
   .then(response => response.json())
   .then(response => showPalettes(response))
 }
@@ -46,7 +49,6 @@ const deleteProject = (e) => {
   const targetProject = $(e.target).closest('.project-folder');
   const targetProjectId = targetProject.attr('id');
   destroyProject(targetProjectId);
-    //REMOVING FROM DOM BUT NOT FROM DB ?
   targetProject.remove();
 }
 
@@ -60,7 +62,6 @@ const deletePalette = (e) => {
   const targetPalette = $(e.target).closest('.mini-palette-container');
   const targetPaletteId = targetPalette.attr('id');
   destroyPalette(targetPaletteId);
-    //REMOVING FROM DOM BUT NOT FROM DB ?
   targetPalette.remove();
 }
 
@@ -70,16 +71,15 @@ const showProjects = (project) => {
   $('#project-list').append(`<option value=${id}>${project_name}</option>`);
 
   $('#project-folders-section').append(
-    `<article class='project-folder' id=${id}>
-      <h2 value=${id}>${project_name}<img id='delete-button' src='../assets/garbage.svg' alt='Delete project icon'></h2>
+    `<article class='project-folder project-folder-${id}' id=${id}>
+      <h2>${project_name}<img id='delete-button' src='../assets/garbage.svg' alt='Delete project icon'></h2>
     </article>`);
 }
 
 const showPalettes = (palette) => {
   const { palette_name, project_id, color_one, color_two, color_three, color_four, color_five, id } = palette;
 
-  $('#project-folders-section').append(
-    `<div class='mini-palette-container' id=${id}>
+  const dropPalette = `<div class='mini-palette-container' id=${id}>
       <h2 value=${project_id}>${palette_name}</h2>
 
       <span style='background-color:${color_one}' class='small-palette'>${color_one}</span>
@@ -93,7 +93,9 @@ const showPalettes = (palette) => {
       <span style='background-color:${color_five}' class='small-palette'>${color_five}</span>
 
       <img id='delete-palette' src='../assets/garbage.svg' alt='Delete palette icon'>
-    </div>`);
+    </div>`
+
+    $(`.project-folder-${palette.project_id}`).append(dropPalette);
 }
 
 const fetchProjects = () => {
@@ -107,6 +109,7 @@ const fetchPalettes = () => {
 const createProject = () => {
   const name = $('#project-name').val();
   storeProject(name);
+  $('#project-name').val('');
 }
 
 const createPalette = () => {
@@ -120,6 +123,7 @@ const createPalette = () => {
     project_id: $('#project-list option:selected').val()
   })
   storePalette(palette);
+  $('#palette-name').val('');
 }
 
 //Event Listeners
@@ -131,7 +135,15 @@ $(window).keypress(function(e) {
 });
 
 $('#save-project-button').on('click', createProject);
-$('#save-palette-button').on('click', createPalette);
+
+$('#save-palette-button').on('click', function() {
+  if(!$('#project-list').val()) {
+    alert('You must select a project from the drop-down menu first before saving a palette')
+  } else if ($('#project-list').val()) {
+    createPalette()
+  }
+})
+
 $('body').on('click', '#delete-button', deleteProject);
 $('body').on('click', '#delete-palette', deletePalette);
 
