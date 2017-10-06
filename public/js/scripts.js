@@ -72,7 +72,10 @@ const showProjects = (project) => {
 
   $('#project-folders-section').append(
     `<article class='project-folder project-folder-${id}' id=${id}>
-      <h2>${project_name}<img id='delete-button' src='../assets/garbage.svg' alt='Delete project icon'></h2>
+      <h2>
+        ${project_name}
+        <img id='delete-button' src='../assets/garbage.svg' alt='Delete project icon'>
+      </h2>
     </article>`);
 }
 
@@ -80,7 +83,10 @@ const showPalettes = (palette) => {
   const { palette_name, project_id, color_one, color_two, color_three, color_four, color_five, id } = palette;
 
   const dropPalette = `<div class='mini-palette-container' id=${id}>
-      <h2 value=${project_id}>${palette_name}</h2>
+      <h3 value=${project_id}>
+        ${palette_name}
+        <img id='delete-palette' src='../assets/garbage.svg' alt='Delete palette icon'>
+      </h3>
 
       <span style='background-color:${color_one}' class='small-palette'>${color_one}</span>
 
@@ -91,8 +97,6 @@ const showPalettes = (palette) => {
       <span style='background-color:${color_four}' class='small-palette'>${color_four}</span>
 
       <span style='background-color:${color_five}' class='small-palette'>${color_five}</span>
-
-      <img id='delete-palette' src='../assets/garbage.svg' alt='Delete palette icon'>
     </div>`
 
     $(`.project-folder-${palette.project_id}`).append(dropPalette);
