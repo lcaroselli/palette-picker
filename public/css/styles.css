@@ -105,7 +105,6 @@ select {
 }
 
 .mini-palette-container {
-  border: 2px solid #3C6E71;
   margin-bottom: 20px;
   padding: 15px;
 }
@@ -128,8 +127,8 @@ select {
 }
 
 #delete-button, #delete-palette {
-  height: 30px;
-  width: 30px;
+  height: 28px;
+  width: 28px;
 }
 
 #delete-button:hover, #delete-palette:hover {
@@ -144,4 +143,9 @@ select {
   margin-right: 10px;
   text-align: center;
   width: 70px;
+}
+
+.project-folder {
+  border: 2px solid black;
+  padding: 15px;
 }
