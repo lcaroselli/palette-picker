@@ -123,12 +123,12 @@ select {
   cursor: pointer;
 }
 
-#delete-button {
+#delete-button, #delete-palette {
   height: 30px;
   width: 30px;
 }
 
-#delete-button:hover {
+#delete-button:hover, #delete-palette:hover {
   cursor: pointer;
 }
 

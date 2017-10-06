@@ -75,6 +75,19 @@ app.post('/api/v1/palettes', (request, response) => {
 app.delete('/api/v1/projects/:id', (request, response) => {
   const id = request.params.id;
 
+  database('projects').where({ id }).del()
+
+  .then(response => {
+    if(!response) {
+      response.status(422).json({ error: 'Project matching id not found' })
+    } response.sendStatus(204)})
+  .catch( error => response.status(500).json({ error }) );
+});
+
+//DELETE Palette
+app.delete('/api/v1/palettes/:id', (request, response) => {
+  const id = request.params.id;
+
   database('palettes').where({ id }).del()
 
   .then(response => {
