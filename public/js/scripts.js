@@ -38,7 +38,7 @@ const storePalette = (name) => {
 
 const destroyProject = (id) => {
   fetch(`/api/v1/projects/${id}`, {
-    method: 'DELETE',
+    method: 'DELETE'
   })
 }
 
@@ -48,6 +48,20 @@ const deleteProject = (e) => {
   destroyProject(targetProjectId);
     //REMOVING FROM DOM BUT NOT FROM DB ?
   targetProject.remove();
+}
+
+const destroyPalette = (id) => {
+  fetch(`/api/v1/palettes/${id}`, {
+    method: 'DELETE'
+  })
+}
+
+const deletePalette = (e) => {
+  const targetPalette = $(e.target).closest('.mini-palette-container');
+  const targetPaletteId = targetPalette.attr('id');
+  destroyPalette(targetPaletteId);
+    //REMOVING FROM DOM BUT NOT FROM DB ?
+  targetPalette.remove();
 }
 
 const showProjects = (project) => {
@@ -62,10 +76,10 @@ const showProjects = (project) => {
 }
 
 const showPalettes = (palette) => {
-  const { palette_name, project_id, color_one, color_two, color_three, color_four, color_five } = palette;
+  const { palette_name, project_id, color_one, color_two, color_three, color_four, color_five, id } = palette;
 
   $('#project-folders-section').append(
-    `<div class='mini-palette-container'>
+    `<div class='mini-palette-container' id=${id}>
       <h2 value=${project_id}>${palette_name}</h2>
 
       <span style='background-color:${color_one}' class='small-palette'>${color_one}</span>
@@ -77,6 +91,8 @@ const showPalettes = (palette) => {
       <span style='background-color:${color_four}' class='small-palette'>${color_four}</span>
 
       <span style='background-color:${color_five}' class='small-palette'>${color_five}</span>
+
+      <img id='delete-palette' src='../assets/garbage.svg' alt='Delete palette icon'>
     </div>`);
 }
 
@@ -117,5 +133,6 @@ $(window).keypress(function(e) {
 $('#save-project-button').on('click', createProject);
 $('#save-palette-button').on('click', createPalette);
 $('body').on('click', '#delete-button', deleteProject);
+$('body').on('click', '#delete-palette', deletePalette);
 
 $(document).ready(generatePalette, fetchProjects, fetchPalettes);
