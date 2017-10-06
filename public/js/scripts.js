@@ -39,19 +39,6 @@ const storePalette = (name) => {
   .then(response => showPalettes(response))
 }
 
-const destroyProject = (id) => {
-  fetch(`/api/v1/projects/${id}`, {
-    method: 'DELETE'
-  })
-}
-
-const deleteProject = (e) => {
-  const targetProject = $(e.target).closest('.project-folder');
-  const targetProjectId = targetProject.attr('id');
-  destroyProject(targetProjectId);
-  targetProject.remove();
-}
-
 const destroyPalette = (id) => {
   fetch(`/api/v1/palettes/${id}`, {
     method: 'DELETE'
@@ -74,7 +61,6 @@ const showProjects = (project) => {
     `<article class='project-folder project-folder-${id}' id=${id}>
       <h2>
         ${project_name}
-        <img id='delete-button' src='../assets/garbage.svg' alt='Delete project icon'>
       </h2>
     </article>`);
 }
@@ -130,11 +116,29 @@ const createPalette = () => {
   $('#palette-name').val('');
 }
 
+const toggleLockColor = (e) => {
+  if ($(e.target).hasClass('lock')) {
+    $(e.target).removeClass('lock').addClass('unlock')
+  } else {
+    $(e.target).removeClass('unlock').addClass('lock')
+  }
+}
+
+const loadPageInfo = () => {
+  generatePalette();
+  fetchProjects();
+  fetchPalettes();
+}
+
+
 //Event Listeners
+$(window).on('load', loadPageInfo);
+
 $('#generate-button').on('click', generatePalette);
+
 $(window).keypress(function(e) {
   if (e.which === 32 && !$('#generate-button').is(':focus') && !$('input').is(':focus')){
-    generatePalette()
+    generatePalette();
   }
 });
 
@@ -148,7 +152,6 @@ $('#save-palette-button').on('click', function() {
   }
 })
 
-$('body').on('click', '#delete-button', deleteProject);
 $('body').on('click', '#delete-palette', deletePalette);
 
-$(document).ready(generatePalette, fetchProjects, fetchPalettes);
+$('body').on('click', '#palette-section', toggleLockColor);
