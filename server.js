@@ -1,3 +1,4 @@
+//Importing dependencies to create an express app
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -20,7 +21,11 @@ app.get('/', (request, response) => {
   response.send('Hello');
 });
 
-
+// GET all projects
+//Using the .get method on our express app to retrieve the project resources in our database.
+//When the project table is selected, if it has nothing in it, it returns a message 'No projects found'
+//Otherwise, if the projects table has projects in it, it returns a json object of those projects
+//When it catches a 500 error, it catches and displays the error
 app.get('/api/v1/projects', (request, response) => {
   database('projects').select()
   .then(projects => {
@@ -30,7 +35,11 @@ app.get('/api/v1/projects', (request, response) => {
   .catch(error => { response.status(500).json({ error }) })
 });
 
-
+// GET all palettes
+//Using the .get method on our express app to retrieve the pallete resources in our database.
+//When the pallete table is selected, if it has nothing in it, it returns a message 'No palletes found'
+//Otherwise, if the palletes table has palletes in it, it returns a json object of those palletes
+//When it catches a 500 error, it catches and displays the error
 app.get('/api/v1/palettes', (request, response) => {
   database('palettes').select()
   .then(palettes => {
@@ -40,7 +49,12 @@ app.get('/api/v1/palettes', (request, response) => {
     .catch(error => { response.status(500).json({ error }) })
 });
 
-
+// POST project folder
+//Using the .post method on our express app to post new  project resources in our database.
+//If the required property name is not found in our post request, it returns an error message indicating a property is missing
+//Otherwise, it inserts that project into our projects database, along with all the necessary properties
+//When successfully added, we get a json object of that project
+//If an error catches, the error is displayed
 app.post('/api/v1/projects', (request, response) => {
   const { name } = request.body;
 
@@ -54,7 +68,11 @@ app.post('/api/v1/projects', (request, response) => {
   .catch(error => response.status(500).json({ error }))
 });
 
-
+// POST palette
+//Using the .post method on our express app to post new  palette resources in our database.
+//It inserts that palette into our palettes database, along with all the necessary properties
+//When successfully added, we get a json object of that palette
+//If an error catches, the error is displayed
 app.post('/api/v1/palettes', (request, response) => {
   const { name, color_1, color_2, color_3, color_4, color_5, project_id } = request.body;
 
@@ -65,6 +83,12 @@ app.post('/api/v1/palettes', (request, response) => {
 });
 
 
+// DELETE project
+//Using the .delete method on our express app to delete a specific project resources in our database.
+//It finds that project by the id and then calls the del() method to destroy that resource
+//If the id is not found, an error message is displayed indicating the project id was not found
+//otherwise, a successful status is sent to the user
+//if an internal error is caught, that error is displayed
 app.delete('/api/v1/projects/:id', (request, response) => {
   const id = request.params.id;
 
@@ -78,7 +102,12 @@ app.delete('/api/v1/projects/:id', (request, response) => {
   .catch( error => response.status(500).json({ error }) );
 });
 
-
+//DELETE Palette
+//Using the .delete method on our express app to delete a specific palette resources in our database.
+//It finds that palette by the id and then calls the del() method to destroy that resource
+//If the id is not found, an error message is displayed indicating the palette id was not found
+//otherwise, a successful status is sent to the userc
+//if an internal error is caught, that error is displayed
 app.delete('/api/v1/palettes/:id', (request, response) => {
   const id = request.params.id;
 
