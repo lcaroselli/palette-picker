@@ -125,7 +125,7 @@ const createPalette = () => {
 //Event Listeners
 $('#generate-button').on('click', generatePalette);
 $(window).keypress(function(e) {
-  if (e.which === 32 && !$('#generate-button').is(':focus')){
+  if (e.which === 32 && !$('#generate-button').is(':focus') && !$('input').is(':focus')){
     generatePalette()
   }
 });

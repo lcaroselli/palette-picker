@@ -12,11 +12,9 @@ app.use(express.static(__dirname + '/public'));
 app.set('port', process.env.PORT || 3000);
 app.locals.title = 'Palette Picker';
 
-
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`);
 });
-
 
 app.get('/', (request, response) => {
   response.send('Hello');
@@ -27,9 +25,8 @@ app.get('/api/v1/projects', (request, response) => {
   database('projects').select()
   .then(projects => {
     if (!projects.length) {
-      return response.status(404).json({ error: 'No projects exist' })
+      return response.status(404).json({ error: 'No projects found' })
     } response.status(200).json(projects) })
-
   .catch(error => { response.status(500).json({ error }) })
 });
 
@@ -38,9 +35,8 @@ app.get('/api/v1/palettes', (request, response) => {
   database('palettes').select()
   .then(palettes => {
     if (!palettes.length) {
-      return response.status(404).json({ error: 'No palettes exist' })
+      return response.status(404).json({ error: 'No palettes found' })
     } response.status(200).json(palettes) })
-
     .catch(error => { response.status(500).json({ error }) })
 });
 
@@ -49,7 +45,7 @@ app.post('/api/v1/projects', (request, response) => {
   const { name } = request.body;
 
   if (!name) {
-    return response.status(422).json({ error: 'Missing property: name' })
+    return response.status(422).json({ error: 'Missing required property: name' })
   }
 
   database('projects').insert({ project_name: name }, '*')
@@ -61,8 +57,6 @@ app.post('/api/v1/projects', (request, response) => {
 // POST palette
 app.post('/api/v1/palettes', (request, response) => {
   const { name, color_1, color_2, color_3, color_4, color_5, project_id } = request.body;
-
-  //Need error for missing props
 
   database('palettes').insert({ palette_name: name, color_one: color_1, color_two: color_2, color_three: color_3, color_four: color_4, color_five: color_5, project_id }, '*')
 
@@ -96,3 +90,5 @@ app.delete('/api/v1/palettes/:id', (request, response) => {
     } response.sendStatus(204)})
   .catch( error => response.status(500).json({ error }) );
 });
+
+module.exports = app;
