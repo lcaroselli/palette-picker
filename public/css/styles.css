@@ -56,6 +56,10 @@ header img {
   text-align: center;
 }
 
+.lock:hover, .unlock:hover {
+  cursor: pointer;
+}
+
 #generate-button, #save-palette-button, #save-project-button {
   background: #30343F;
   border: 2px solid black;
