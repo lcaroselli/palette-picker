@@ -126,6 +126,25 @@ const showPalettes = (palette) => {
   })
 }
 
+const showNewPalettes = (palette) => {
+  // const filteredId = project.filter((el, i) => i === 0)
+  // const filteredName = project.filter((el, i) => i === 1)
+  // const combinedProject = [...filteredId, ...filteredName]
+  //
+  // const filteredProject = combinedProject.filter((el, i) => i === 1)
+  //
+  // return filteredProject.map(key => {
+  //   $('#project-list').append(`<option value=${key.id}>${key.project_name}</option>`)
+  //
+  //   $('#project-folders-section').append(
+  //     `<article class='project-folder project-folder-${key.id}' id=${key.id}>
+  //       <h2>
+  //         ${key.project_name}
+  //       </h2>
+  //     </article>`)
+  // })
+}
+
 const createProject = () => {
   const name = $('#project-name').val();
   fetch('/api/v1/projects', {
