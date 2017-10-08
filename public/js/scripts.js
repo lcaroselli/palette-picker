@@ -21,6 +21,7 @@ const storeProject = (name) => {
   })
   .then(response => { return response })
   .then(response => response.json())
+  .then(response => console.log(response))
   .then(response => { return response })
   .catch(error => console.log(error))
 }
@@ -68,7 +69,8 @@ const deletePalette = (e) => {
 }
 
 const showProjects = (project) => {
-  return project.map(key => {
+  if (project !== undefined) {
+    return project.map(key => {
       $('#project-list').append(`<option value=${key.id}>${key.project_name}</option>`)
 
       $('#project-folders-section').append(
@@ -77,8 +79,29 @@ const showProjects = (project) => {
         ${key.project_name}
         </h2>
         </article>`)
+      })
+  }
+}
+
+const showNewProjects = (project) => {
+  const filteredId = project.filter((el, i) => i === 0)
+  const filteredName = project.filter((el, i) => i === 1)
+  const combinedProject = [...filteredId, ...filteredName]
+
+  const filteredProject = combinedProject.filter((el, i) => i === 1)
+
+  return filteredProject.map(key => {
+    $('#project-list').append(`<option value=${key.id}>${key.project_name}</option>`)
+
+    $('#project-folders-section').append(
+      `<article class='project-folder project-folder-${key.id}' id=${key.id}>
+        <h2>
+          ${key.project_name}
+        </h2>
+      </article>`)
   })
 }
+
 
 const showPalettes = (palette) => {
   return palette.map(key => {
@@ -105,7 +128,28 @@ const showPalettes = (palette) => {
 
 const createProject = () => {
   const name = $('#project-name').val();
-  storeProject(name);
+  fetch('/api/v1/projects', {
+    method: 'POST',
+    body: JSON.stringify({ name }),
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => { return response })
+  .then(response => response.json())
+  .then(response => {
+    const responseKeys = Object.keys(response)
+    return responseKeys.map(key => {
+      return { [key]: response[key] }
+    })
+  })
+  .then(response => {
+    if(response !== undefined) {
+      showNewProjects(response)
+    }})
+  .catch(error => console.log(error))
+
   $('#project-name').val('');
 }
 
