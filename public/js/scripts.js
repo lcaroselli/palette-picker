@@ -21,7 +21,6 @@ const storeProject = (name) => {
   })
   .then(response => { return response })
   .then(response => response.json())
-  .then(response => console.log(response))
   .then(response => { return response })
   .catch(error => console.log(error))
 }
@@ -102,7 +101,6 @@ const showNewProjects = (project) => {
   })
 }
 
-
 const showPalettes = (palette) => {
   return palette.map(key => {
     $(`.project-folder-${key.project_id}`).append(
@@ -127,22 +125,28 @@ const showPalettes = (palette) => {
 }
 
 const showNewPalettes = (palette) => {
-  // const filteredId = project.filter((el, i) => i === 0)
-  // const filteredName = project.filter((el, i) => i === 1)
-  // const combinedProject = [...filteredId, ...filteredName]
-  //
-  // const filteredProject = combinedProject.filter((el, i) => i === 1)
-  //
-  // return filteredProject.map(key => {
-  //   $('#project-list').append(`<option value=${key.id}>${key.project_name}</option>`)
-  //
-  //   $('#project-folders-section').append(
-  //     `<article class='project-folder project-folder-${key.id}' id=${key.id}>
-  //       <h2>
-  //         ${key.project_name}
-  //       </h2>
-  //     </article>`)
-  // })
+  const filteredPalette = palette.filter((el, i) => i === 0)
+
+  return filteredPalette.map(key => {
+    $(`.project-folder-${palette[7].project_id}`).append(
+      `<div class='mini-palette-container' id=${palette[0].id}>
+      <h3 value=${palette[0].id}>
+      ${palette[1].palette_name}
+      <img id='delete-palette' src='../assets/garbage.svg' alt='Delete palette icon'>
+      </h3>
+
+      <span style='background-color:${palette[2].color_one}' class='small-palette'>${palette[2].color_one}</span>
+
+      <span style='background-color:${palette[3].color_two}' class='small-palette'>${palette[3].color_two}</span>
+
+      <span style='background-color:${palette[4].color_three}' class='small-palette'>${palette[4].color_three}</span>
+
+      <span style='background-color:${palette[5].color_four}' class='small-palette'>${palette[5].color_four}</span>
+
+      <span style='background-color:${palette[6].color_five}' class='small-palette'>${palette[6].color_five}</span>
+      </div>`
+    )
+  })
 }
 
 const createProject = () => {
@@ -182,7 +186,29 @@ const createPalette = () => {
     color_5: $('#color-5').text(),
     project_id: $('#project-list option:selected').val()
   })
-  storePalette(palette);
+
+  fetch('/api/v1/palettes', {
+    method: 'POST',
+    body: JSON.stringify(palette),
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => { return response })
+  .then(response => response.json())
+  .then(response => {
+    const responseKeys = Object.keys(response)
+    return responseKeys.map(key => {
+      return { [key]: response[key] }
+    })
+  })
+  .then(response => {
+    if(response !== undefined) {
+      showNewPalettes(response)
+    }})
+  .catch(error => console.log(error))
+
   $('#palette-name').val('');
 }
 
