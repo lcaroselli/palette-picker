@@ -45,6 +45,7 @@ describe('API Routes', () => {
       .then(() => done())
   });
 
+
   describe('GET /api/v1/projects', () => {
     it('should retrieve all projects', (done) => {
       chai.request(server)
@@ -100,6 +101,27 @@ describe('API Routes', () => {
       .get('/api/v1/partyhardpalettes')
       .end((error, response) => {
         response.should.have.status(404);
+        done();
+      });
+    });
+  });
+
+
+  describe('DELETE /api/v1/palettes/:id', () => {
+    it('should delete a palette from the database', (done) => {
+      chai.request(server)
+      .delete('/api/v1/palettes/2')
+      .end((error, response) => {
+        response.should.have.status(204);
+        done();
+      });
+    });
+
+    it('should error 422 if the palette does not exist', (done) => {
+      chai.request(server)
+      .delete('/api/v1/palettes/500')
+      .end((error, response) => {
+        response.should.have.status(422);
         done();
       });
     });

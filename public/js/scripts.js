@@ -227,7 +227,7 @@ const loadPageInfo = (project) => {
 }
 
 const showSmallPalette = () => {
-  console.log('Ayyyy')
+  console.log('Small palette')
 }
 
 
