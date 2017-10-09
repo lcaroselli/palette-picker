@@ -5,8 +5,10 @@ const generateColor = () => {
 const generatePalette = () => {
   for (let i = 1; i < 6; i++) {
     let color = generateColor();
-    $(`#color-${i}`).css('background-color', color);
-    $(`#color-${i}`).text(color.toUpperCase());
+    if ($(`#color-${i}`).hasClass('lock')) {
+      $(`#color-${i}`).css('background-color', color);
+      $(`#color-${i}`).text(color.toUpperCase());
+    }
   }
 }
 
