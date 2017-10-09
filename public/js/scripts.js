@@ -89,18 +89,16 @@ const showNewProjects = (project) => {
   const filteredName = project.filter((el, i) => i === 1)
   const combinedProject = [...filteredId, ...filteredName]
 
-  const filteredProject = combinedProject.filter((el, i) => i === 1)
+  const appendedProject = $('#project-list').append(`<option value=${combinedProject[0].id}>${combinedProject[1].project_name}</option>`)
 
-  return filteredProject.map(key => {
-    $('#project-list').append(`<option value=${key.id}>${key.project_name}</option>`)
+  $('#project-folders-section').append(
+    `<article class='project-folder project-folder-${combinedProject[0].id}' id=${combinedProject[0].id}>
+    <h2>
+    ${combinedProject[1].project_name}
+    </h2>
+    </article>`)
 
-    $('#project-folders-section').append(
-      `<article class='project-folder project-folder-${key.id}' id=${key.id}>
-        <h2>
-          ${key.project_name}
-        </h2>
-      </article>`)
-  })
+  return appendedProject;
 }
 
 const showPalettes = (palette) => {
@@ -228,6 +226,10 @@ const loadPageInfo = (project) => {
   fetchPalettes();
 }
 
+const showSmallPalette = () => {
+  console.log('Ayyyy')
+}
+
 
 //Event Listeners
 $(window).on('load', loadPageInfo);
@@ -253,3 +255,5 @@ $('#save-palette-button').on('click', function() {
 $('body').on('click', '#delete-palette', deletePalette);
 
 $('body').on('click', '#palette-section', toggleLockColor);
+
+$('body').on('click', '.small-palette', showSmallPalette);

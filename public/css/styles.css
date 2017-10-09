@@ -57,6 +57,7 @@ header img {
 }
 
 .lock:hover, .unlock:hover {
+  box-shadow: 2px 2px black;
   cursor: pointer;
 }
 
@@ -162,6 +163,11 @@ select {
   margin-right: 10px;
   text-align: center;
   width: 70px;
+}
+
+.small-palette:hover {
+  cursor: pointer;
+  box-shadow: 2px 2px black;
 }
 
 .project-folder {
